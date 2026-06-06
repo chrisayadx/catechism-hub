@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #C8A96E;
+  --color-gold-muted: #9C8866;
+  --color-gold-dim: #7A6B52;
+  --color-gold-faint: #4A3D2E;
+
+  --color-ink: #0F0D0A;
+  --color-ink-surface: #111009;
+  --color-ink-card: #15110C;
+  --color-ink-elevated: #17130E;
+  --color-ink-header: #1A1510;
+
+  --color-line: #2A2218;
+  --color-line-strong: #3A2E1E;
+
+  --color-cream: #E8DCC8;
+  --color-cream-bright: #F2E8D0;
+  --color-cream-dim: #C4B89A;
+
+  --color-sage: #8BAA7A;
+  --color-sage-text: #A8C49A;
+  --color-sage-bright: #6BAA7A;
+  --color-sage-bg: #15201A;
+  --color-sage-border: #4A7A5A;
+
+  --color-mauve: #9A8BBB;
+  --color-mauve-text: #B8AACC;
+
+  --font-serif: "EB Garamond", "Palatino Linotype", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #0F0D0A;
+  font-family: "EB Garamond", "Palatino Linotype", Georgia, serif;
+  color: #E8DCC8;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease;
+}
+
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #111009;
+}
+::-webkit-scrollbar-thumb {
+  background: #2A2218;
+  border-radius: 2px;
+}
