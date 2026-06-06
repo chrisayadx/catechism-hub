@@ -1,43 +1,58 @@
 import { resources, resourcesNote } from "../data/resources";
 
-function SectionDivider({ label, color = "text-sage" }) {
+function SectionDivider({ label, color }) {
   return (
-    <div className="flex items-center gap-3 mb-5">
-      <span className={`text-[11px] tracking-[0.2em] uppercase ${color} shrink-0`}>{label}</span>
-      <div className="flex-1 h-px bg-line" />
+    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+      <span style={{
+        fontSize: 9,
+        textTransform: "uppercase",
+        letterSpacing: "0.2em",
+        color,
+        flexShrink: 0,
+        fontFamily: "EB Garamond, Georgia, serif",
+      }}>{label}</span>
+      <div style={{ flex: 1, height: 1, background: "#D5C9B0" }} />
     </div>
   );
 }
 
 function ResourceGroup({ group }) {
   return (
-    <div>
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-base">{group.icon}</span>
-        <h3 className="m-0 text-sm sm:text-[15px] text-cream-dim font-normal">{group.category}</h3>
+    <div style={{ marginBottom: 20 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+        <span style={{ fontSize: 14 }}>{group.icon}</span>
+        <span style={{ fontSize: 13, color: "#3A2E1A", fontFamily: "EB Garamond, Georgia, serif" }}>{group.category}</span>
       </div>
-      <div className="flex flex-col gap-2 pl-0 sm:pl-6">
+      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
         {group.items.map((item, i) => (
           <a
             key={i}
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-3 px-4 py-3 rounded-sm no-underline transition-colors duration-150 group touch-manipulation"
-            style={{ background: "#15110C", border: "1px solid #2A2218" }}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 12,
+              padding: "9px 14px",
+              borderRadius: 4,
+              background: "#EAE0C8",
+              border: "1px solid #D5C9B0",
+              textDecoration: "none",
+              transition: "border-color 0.15s, background 0.15s",
+            }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "#C8A96E40";
-              e.currentTarget.style.background = "#1C160F";
+              e.currentTarget.style.borderColor = "#B09060";
+              e.currentTarget.style.background = "#E2D8BE";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "#2A2218";
-              e.currentTarget.style.background = "#15110C";
+              e.currentTarget.style.borderColor = "#D5C9B0";
+              e.currentTarget.style.background = "#EAE0C8";
             }}
           >
-            <span className="text-gold text-sm sm:text-[15px] leading-snug">{item.name}</span>
-            <span className="text-gold-faint text-[11px] sm:text-xs shrink-0">
-              {item.note} ↗
-            </span>
+            <span style={{ fontSize: 13, color: "#8B6820", fontFamily: "EB Garamond, Georgia, serif" }}>{item.name}</span>
+            <span style={{ fontSize: 10, color: "#A09070", flexShrink: 0, fontFamily: "EB Garamond, Georgia, serif" }}>{item.note} ↗</span>
           </a>
         ))}
       </div>
@@ -47,31 +62,37 @@ function ResourceGroup({ group }) {
 
 export default function ResourcesTab() {
   return (
-    <div className="flex flex-col gap-8">
-      <div>
-        <SectionDivider label="Free Resources" color="text-sage" />
-        <div className="flex flex-col gap-6">
-          {resources.free.map((group, i) => (
-            <ResourceGroup key={i} group={group} />
-          ))}
+    <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+      <div style={{ padding: "22px 28px 18px", borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
+        <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.2em", color: "#A09070", marginBottom: 4, fontFamily: "EB Garamond, Georgia, serif" }}>
+          Servant Resource Hub
+        </div>
+        <div style={{ fontSize: "clamp(22px, 4vw, 30px)", fontWeight: 400, color: "#1C1209", letterSpacing: "-0.01em", fontFamily: "EB Garamond, Georgia, serif", lineHeight: 1.2 }}>
+          Resources
         </div>
       </div>
-
-      <div>
-        <SectionDivider label="Purchase" color="text-gold" />
-        <div className="flex flex-col gap-6">
-          {resources.purchase.map((group, i) => (
-            <ResourceGroup key={i} group={group} />
-          ))}
+      <div style={{ padding: "24px 28px" }}>
+        <SectionDivider label="Free Resources" color="#4A7838" />
+        {resources.free.map((group, i) => <ResourceGroup key={i} group={group} />)}
+        <div style={{ marginTop: 12 }}>
+          <SectionDivider label="Purchase" color="#8B6820" />
+          {resources.purchase.map((group, i) => <ResourceGroup key={i} group={group} />)}
         </div>
-      </div>
-
-      <div
-        className="px-5 py-4 rounded text-sm text-gold-muted leading-relaxed"
-        style={{ background: "#15110C", border: "1px solid #2A2218", borderLeft: "3px solid #5B4A8C" }}
-      >
-        <strong className="text-cream-dim font-medium">Note on Fr. Kaldas & Fr. De Young books: </strong>
-        {resourcesNote}
+        <div style={{
+          padding: "14px 16px",
+          borderRadius: 4,
+          background: "#EAE0C8",
+          border: "1px solid #D5C9B0",
+          borderLeft: "3px solid #6B5080",
+          fontSize: 13,
+          color: "#6B5840",
+          lineHeight: 1.65,
+          fontFamily: "EB Garamond, Georgia, serif",
+          marginTop: 8,
+        }}>
+          <strong style={{ color: "#3A2E1A", fontWeight: 500 }}>Note on Fr. Kaldas & Fr. De Young books: </strong>
+          {resourcesNote}
+        </div>
       </div>
     </div>
   );
