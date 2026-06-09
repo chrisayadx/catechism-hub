@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DataProvider } from "./context/DataContext";
 import Sidebar from "./components/Sidebar";
+import BottomNav from "./components/BottomNav";
 import SessionsTab from "./components/SessionsTab";
 import CurriculumTab from "./components/CurriculumTab";
 import ResourcesTab from "./components/ResourcesTab";
@@ -15,9 +16,9 @@ function AppInner() {
     setChecked((prev) => ({ ...prev, [i]: !prev[i] }));
 
   return (
-    <div style={{ display: "flex", minHeight: "100dvh", background: "#0F0D0A" }}>
+    <div className="app-layout" style={{ display: "flex", minHeight: "100dvh", background: "#0F0D0A" }}>
       <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-      <main style={{
+      <main className="app-main" style={{
         flex: 1,
         display: "flex",
         flexDirection: "column",
@@ -30,6 +31,7 @@ function AppInner() {
         {activeTab === "completion"  && <CheckpointsTab checked={checked} onToggle={toggleCheck} />}
         {activeTab === "settings"    && <SettingsTab />}
       </main>
+      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 }

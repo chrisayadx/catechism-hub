@@ -184,8 +184,7 @@ export default function CurriculumTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
       {/* Page header */}
-      <div style={{
-        padding: "22px 28px 18px",
+      <div className="tab-header" style={{
         borderBottom: "1px solid #D5C9B0",
         background: "#EBE2CC",
       }}>

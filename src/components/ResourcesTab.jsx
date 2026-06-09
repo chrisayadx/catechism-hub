@@ -64,7 +64,7 @@ export default function ResourcesTab() {
   const { resources, resourcesNote } = useData();
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-      <div style={{ padding: "22px 28px 18px", borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
+      <div className="tab-header" style={{ borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
         <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.2em", color: "#A09070", marginBottom: 4, fontFamily: "EB Garamond, Georgia, serif" }}>
           Servant Resource Hub
         </div>
@@ -72,7 +72,7 @@ export default function ResourcesTab() {
           Resources
         </div>
       </div>
-      <div style={{ padding: "24px 28px" }}>
+      <div className="tab-content" style={{ }}>
         <SectionDivider label="Free Resources" color="#4A7838" />
         {resources.free.map((group, i) => <ResourceGroup key={i} group={group} />)}
         <div style={{ marginTop: 12 }}>

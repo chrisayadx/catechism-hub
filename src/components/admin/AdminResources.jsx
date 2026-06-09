@@ -76,7 +76,7 @@ function ItemEditor({ items, onChange }) {
     <div>
       {items.map((item, i) => (
         <div key={i} style={{ marginBottom: 12, padding: "10px 12px", background: "#EAE0C8", borderRadius: 4, border: "1px solid #D5C9B0" }}>
-          <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+          <div className="admin-row" style={{ marginBottom: 6 }}>
             <div style={{ flex: 2 }}>
               <label style={labelStyle}>Name</label>
               <input style={inputStyle} value={item.name} onChange={e => updateItem(i, "name", e.target.value)} placeholder="Display name" />
@@ -132,7 +132,7 @@ function GroupCard({ group, onSave, onDelete }) {
 
       {open && (
         <div style={{ padding: "16px 14px", background: "#F2EAD5" }}>
-          <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
+          <div className="admin-row" style={{ marginBottom: 12 }}>
             <div style={{ flex: 1 }}>
               <label style={labelStyle}>Category name</label>
               <input style={inputStyle} value={draft.category} onChange={e => setDraft(d => ({ ...d, category: e.target.value }))} />
@@ -189,7 +189,7 @@ function AddGroupForm({ onAdd, onCancel }) {
   return (
     <div style={{ padding: "16px 14px", background: "#EBE2CC", borderRadius: 6, border: "1px solid #D5C9B0", marginBottom: 12 }}>
       <div style={{ fontSize: 13, color: "#3A2E1A", fontFamily: F, marginBottom: 12, fontWeight: 500 }}>New resource group</div>
-      <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
+      <div className="admin-row" style={{ marginBottom: 12 }}>
         <div style={{ flex: 1 }}>
           <label style={labelStyle}>Category name</label>
           <input style={inputStyle} value={draft.category} onChange={e => setDraft(d => ({ ...d, category: e.target.value }))} placeholder="e.g. Podcast Series" autoFocus />

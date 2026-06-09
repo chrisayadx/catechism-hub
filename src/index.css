@@ -77,3 +77,96 @@ a {
   background: #2A2218;
   border-radius: 2px;
 }
+
+/* ── Responsive layout ───────────────────────────── */
+
+/* Prevent horizontal overflow causing background-color bleed */
+html, body {
+  overflow-x: hidden;
+}
+
+.app-layout {
+  overflow-x: hidden;
+}
+
+/* Bottom nav hidden on desktop */
+.bottom-nav {
+  display: none;
+}
+
+/* Admin form rows: horizontal on desktop */
+.admin-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* Settings sub-nav: allow horizontal scroll on small screens */
+.settings-subnav {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 1px;
+}
+.settings-subnav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Responsive tab/page header padding */
+.tab-header {
+  padding: 22px 28px 18px;
+}
+.tab-content {
+  padding: 24px 28px;
+}
+
+/* Session expanded body indent */
+.session-expanded-body {
+  padding: 4px 24px 22px 70px;
+}
+
+@media (max-width: 767px) {
+  /* Hide sidebar, show bottom nav */
+  .app-sidebar {
+    display: none !important;
+  }
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #1a1510;
+    border-top: 1px solid #2a2218;
+    z-index: 100;
+    align-items: stretch;
+  }
+  /* Push content above bottom nav */
+  .app-main {
+    padding-bottom: 60px;
+  }
+
+  /* Admin rows stack on mobile */
+  .admin-row {
+    flex-direction: column;
+  }
+  .admin-row > * {
+    width: 100% !important;
+    flex: unset !important;
+  }
+
+  /* Tighter padding on small screens */
+  .tab-header {
+    padding: 16px 16px 14px;
+  }
+  .tab-content {
+    padding: 16px 16px;
+  }
+
+  /* Session expanded: less left indent */
+  .session-expanded-body {
+    padding: 4px 16px 20px 16px;
+  }
+}

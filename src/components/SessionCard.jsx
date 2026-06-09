@@ -101,8 +101,7 @@ export default function SessionCard({ session, isExpanded, onToggle }) {
       {/* Expanded content */}
       <div className={`accordion-content ${isExpanded ? "open" : ""}`}>
         <div className="accordion-inner">
-          <div style={{
-            padding: "4px 24px 22px 70px",
+          <div className="session-expanded-body" style={{
             display: "flex",
             flexDirection: "column",
             gap: 16,

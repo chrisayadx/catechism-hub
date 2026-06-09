@@ -89,7 +89,7 @@ function NavButton({ id, label, Icon, active, onClick }) {
 
 export default function Sidebar({ activeTab, onTabChange }) {
   return (
-    <aside style={{
+    <aside className="app-sidebar" style={{
       width: 120,
       minHeight: "100dvh",
       background: "#1a1510",

@@ -35,7 +35,7 @@ export default function SettingsTab() {
   }
 
   const pageHeader = (
-    <div style={{ padding: "22px 28px 18px", borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
+    <div className="tab-header" style={{ borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
       <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.2em", color: "#A09070", marginBottom: 4, fontFamily: F }}>
         Admin
       </div>
@@ -57,7 +57,7 @@ export default function SettingsTab() {
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
       {/* Header */}
-      <div style={{ padding: "22px 28px 0", borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
+      <div className="tab-header" style={{ paddingBottom: 0, borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
           <div>
             <div style={{ fontSize: 9, textTransform: "uppercase", letterSpacing: "0.2em", color: "#A09070", marginBottom: 4, fontFamily: F }}>
@@ -102,7 +102,7 @@ export default function SettingsTab() {
         </div>
 
         {/* Sub-nav */}
-        <div style={{ display: "flex", gap: 4 }}>
+        <div className="settings-subnav">
           {ADMIN_TABS.map(({ id, label }) => (
             <button
               key={id}
@@ -130,7 +130,7 @@ export default function SettingsTab() {
       </div>
 
       {/* Panel content */}
-      <div style={{ flex: 1, padding: "24px 28px", overflowY: "auto" }}>
+      <div className="tab-content" style={{ flex: 1, overflowY: "auto" }}>
         {!usingSupabase && (
           <div style={{
             padding: "12px 16px",

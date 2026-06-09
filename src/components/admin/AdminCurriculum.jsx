@@ -112,7 +112,7 @@ function PartForm({ initial, partNumber, isNew, onSave, onCancel, onDelete }) {
 
   return (
     <div style={{ padding: "16px 14px", background: "#F2EAD5", borderTop: isNew ? "none" : "1px solid #D5C9B0" }}>
-      <div style={{ display: "flex", gap: 10, marginBottom: 14 }}>
+      <div className="admin-row" style={{ marginBottom: 14 }}>
         <div style={{ flex: 1 }}>
           <label style={labelStyle}>Part name</label>
           <input style={inputStyle} value={draft.part} onChange={e => setDraft(d => ({ ...d, part: e.target.value }))} placeholder="e.g. Doctrine & Scripture" autoFocus={isNew} />

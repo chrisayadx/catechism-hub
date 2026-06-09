@@ -84,7 +84,7 @@ function SessionForm({ initial, sessionNumber, onSave, onCancel, onDelete, isNew
 
   return (
     <div style={{ padding: "16px 14px", background: "#F2EAD5", borderTop: isNew ? "none" : "1px solid #D5C9B0" }}>
-      <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
+      <div className="admin-row" style={{ marginBottom: 12 }}>
         <div style={{ flex: 2 }}>
           <label style={labelStyle}>Title</label>
           <input style={inputStyle} value={draft.title} onChange={e => setDraft(d => ({ ...d, title: e.target.value }))} placeholder="Session title" autoFocus={isNew} />
