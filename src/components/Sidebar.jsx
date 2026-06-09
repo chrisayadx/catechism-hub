@@ -131,14 +131,27 @@ export default function Sidebar({ activeTab, onTabChange }) {
       </nav>
 
       {/* Bottom: Settings + footer */}
-      <div style={{ borderTop: "1px solid #2a2218", padding: "8px 8px 10px" }}>
-        <NavButton
-          id="settings"
-          label="Settings"
-          Icon={IconSettings}
-          active={activeTab === "settings"}
-          onClick={() => onTabChange("settings")}
-        />
+      <div>
+        <div style={{ borderTop: "1px solid #2a2218", padding: "8px 8px 6px" }}>
+          <NavButton
+            id="settings"
+            label="Settings"
+            Icon={IconSettings}
+            active={activeTab === "settings"}
+            onClick={() => onTabChange("settings")}
+          />
+        </div>
+        <div style={{
+          padding: "10px 10px 14px",
+          fontSize: 8,
+          color: "#3a2e1e",
+          textAlign: "center",
+          lineHeight: 1.6,
+          fontStyle: "italic",
+          fontFamily: "EB Garamond, Georgia, serif",
+        }}>
+          For the servants —<br />that the people<br />may be built up
+        </div>
       </div>
     </aside>
   );

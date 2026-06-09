@@ -126,6 +126,17 @@ html, body {
   padding: 4px 24px 22px 70px;
 }
 
+/* Desktop: sidebar fixed, content scrolls independently */
+@media (min-width: 768px) {
+  .app-layout {
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .app-main {
+    overflow-y: auto;
+  }
+}
+
 @media (max-width: 767px) {
   /* Hide sidebar, show bottom nav */
   .app-sidebar {
