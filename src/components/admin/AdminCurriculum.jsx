@@ -146,7 +146,7 @@ function PartForm({ initial, partNumber, isNew, onSave, onCancel, onDelete }) {
         <div style={{ display: "flex", gap: 8 }}>
           <button style={btnSecondary} onClick={onCancel}>Cancel</button>
           <button style={{ ...btnPrimary, opacity: saving ? 0.6 : 1 }} onClick={handleSave} disabled={saving}>
-            {saving ? "Saving…" : saved ? "Saved ✓" : isNew ? `Add Part ${toRoman(partNumber)}` : "Save"}
+            {saving ? "Saving…" : saved ? "Saved ✓" : isNew ? "Add Part" : "Save"}
           </button>
         </div>
       </div>
@@ -180,10 +180,7 @@ export default function AdminCurriculum() {
         <div style={{ marginBottom: 12, border: "1px solid #C8A96E", borderRadius: 6, overflow: "hidden", background: "#EBE2CC" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px" }}>
             <div style={{ width: 3, height: 36, borderRadius: 2, background: "#C8A96E", flexShrink: 0 }} />
-            <div>
-              <div style={{ fontSize: 10, color: "#A09070", fontFamily: F, textTransform: "uppercase", letterSpacing: "0.12em" }}>New</div>
-              <div style={{ fontSize: 15, color: "#1C1209", fontFamily: F }}>Part {toRoman(nextNumber)}</div>
-            </div>
+            <div style={{ fontSize: 15, color: "#1C1209", fontFamily: F }}>New Part</div>
           </div>
           <PartForm
             initial={BLANK_PART}
