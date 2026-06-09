@@ -1,4 +1,4 @@
-import { resources, resourcesNote } from "../data/resources";
+import { useData } from "../context/DataContext";
 
 function SectionDivider({ label, color }) {
   return (
@@ -61,6 +61,7 @@ function ResourceGroup({ group }) {
 }
 
 export default function ResourcesTab() {
+  const { resources, resourcesNote } = useData();
   return (
     <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
       <div style={{ padding: "22px 28px 18px", borderBottom: "1px solid #D5C9B0", background: "#EBE2CC" }}>

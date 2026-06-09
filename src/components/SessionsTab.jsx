@@ -1,8 +1,9 @@
 import { useState } from "react";
 import SessionCard from "./SessionCard";
-import { sessions } from "../data/sessions";
+import { useData } from "../context/DataContext";
 
 export default function SessionsTab() {
+  const { sessions } = useData();
   const [expandedSession, setExpandedSession] = useState(null);
   const toggle = (id) => setExpandedSession((prev) => (prev === id ? null : id));
 
