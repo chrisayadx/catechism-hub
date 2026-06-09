@@ -22,7 +22,7 @@ export default function SessionsTab() {
           marginBottom: 4,
           fontFamily: "EB Garamond, Georgia, serif",
         }}>
-          5-session catechesis curriculum
+          {sessions.length}-session catechesis curriculum
         </div>
         <div style={{
           fontSize: "clamp(22px, 4vw, 30px)",
@@ -47,10 +47,11 @@ export default function SessionsTab() {
 
       {/* List */}
       <div style={{ flex: 1 }}>
-        {sessions.map((s) => (
+        {sessions.map((s, idx) => (
           <SessionCard
             key={s.id}
             session={s}
+            number={idx + 1}
             isExpanded={expandedSession === s.id}
             onToggle={() => toggle(s.id)}
           />

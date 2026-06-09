@@ -1,6 +1,12 @@
-const ROMAN = ["I", "II", "III", "IV", "V"];
+function toRoman(n) {
+  const vals = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
+  const syms = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
+  let r = "";
+  for (let i = 0; i < vals.length; i++) { while (n >= vals[i]) { r += syms[i]; n -= vals[i]; } }
+  return r;
+}
 
-export default function SessionCard({ session, isExpanded, onToggle }) {
+export default function SessionCard({ session, number, isExpanded, onToggle }) {
   return (
     <div style={{
       borderBottom: "1px solid #DDD5C0",
@@ -45,7 +51,7 @@ export default function SessionCard({ session, isExpanded, onToggle }) {
           flexShrink: 0,
           fontStyle: "italic",
         }}>
-          {ROMAN[session.id - 1]}.
+          {toRoman(number)}.
         </div>
 
         {/* Text content */}
