@@ -92,7 +92,11 @@ function ItemEditor({ items, onChange }) {
               <label style={labelStyle}>Note</label>
               <input style={inputStyle} value={item.note || ""} onChange={e => updateItem(i, "note", e.target.value)} placeholder="Short note (optional)" />
             </div>
-            <button style={btnDanger} onClick={() => removeItem(i)}>Remove</button>
+            <ConfirmButton
+              label="Remove"
+              style={btnDanger}
+              onConfirm={() => removeItem(i)}
+            />
           </div>
         </div>
       ))}
