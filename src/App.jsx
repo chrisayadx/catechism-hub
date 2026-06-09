@@ -16,7 +16,7 @@ function AppInner() {
     setChecked((prev) => ({ ...prev, [i]: !prev[i] }));
 
   return (
-    <div className="app-layout" style={{ display: "flex", minHeight: "100dvh", background: "#0F0D0A" }}>
+    <div className="app-layout" style={{ display: "flex", minHeight: "100dvh", background: "#1a1510" }}>
       <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
       <main className="app-main" style={{
         flex: 1,

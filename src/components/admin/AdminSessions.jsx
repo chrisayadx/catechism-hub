@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useData } from "../../context/DataContext";
+import ConfirmButton from "./ConfirmButton";
 
 const F = "EB Garamond, Georgia, serif";
 
@@ -119,7 +120,11 @@ function SessionForm({ initial, sessionNumber, onSave, onCancel, onDelete, isNew
       <div style={{ display: "flex", gap: 8, justifyContent: "space-between", alignItems: "center" }}>
         <div>
           {!isNew && onDelete && (
-            <button style={btnDanger} onClick={() => onDelete(initial.id)}>Delete session</button>
+            <ConfirmButton
+              label="Delete session"
+              style={btnDanger}
+              onConfirm={() => onDelete(initial.id)}
+            />
           )}
         </div>
         <div style={{ display: "flex", gap: 8 }}>

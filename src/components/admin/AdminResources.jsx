@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useData } from "../../context/DataContext";
+import ConfirmButton from "./ConfirmButton";
 
 const F = "EB Garamond, Georgia, serif";
 
@@ -160,7 +161,11 @@ function GroupCard({ group, onSave, onDelete }) {
           </div>
 
           <div style={{ display: "flex", gap: 8, justifyContent: "space-between" }}>
-            <button style={btnDanger} onClick={() => onDelete(group.id, group.section)}>Delete group</button>
+            <ConfirmButton
+              label="Delete group"
+              style={btnDanger}
+              onConfirm={() => onDelete(group.id, group.section)}
+            />
             <div style={{ display: "flex", gap: 8 }}>
               <button style={btnSecondary} onClick={reset}>Cancel</button>
               <button style={{ ...btnPrimary, opacity: saving ? 0.6 : 1 }} onClick={handleSave} disabled={saving}>

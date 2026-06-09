@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useData } from "../../context/DataContext";
+import ConfirmButton from "./ConfirmButton";
 
 const F = "EB Garamond, Georgia, serif";
 
@@ -135,7 +136,11 @@ function PartForm({ initial, partNumber, isNew, onSave, onCancel, onDelete }) {
       <div style={{ display: "flex", gap: 8, justifyContent: "space-between", alignItems: "center" }}>
         <div>
           {!isNew && onDelete && (
-            <button style={btnDanger} onClick={() => onDelete(initial.id)}>Delete part</button>
+            <ConfirmButton
+              label="Delete part"
+              style={btnDanger}
+              onConfirm={() => onDelete(initial.id)}
+            />
           )}
         </div>
         <div style={{ display: "flex", gap: 8 }}>
