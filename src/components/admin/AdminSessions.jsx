@@ -16,12 +16,7 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 
-const taStyle = {
-  ...inputStyle,
-  resize: "vertical",
-  lineHeight: 1.6,
-  minHeight: 80,
-};
+const taStyle = { ...inputStyle, resize: "vertical", lineHeight: 1.6, minHeight: 80 };
 
 const labelStyle = {
   fontSize: 10,
@@ -33,148 +28,154 @@ const labelStyle = {
   display: "block",
 };
 
-const btnPrimary = {
-  padding: "7px 16px",
-  borderRadius: 4,
-  border: "none",
-  background: "#C8A96E",
-  color: "#1C1209",
-  fontSize: 12,
-  fontFamily: F,
-  cursor: "pointer",
-};
+const btnPrimary  = { padding: "7px 16px", borderRadius: 4, border: "none", background: "#C8A96E", color: "#1C1209", fontSize: 12, fontFamily: F, cursor: "pointer" };
+const btnSecondary = { padding: "7px 14px", borderRadius: 4, border: "1px solid #D5C9B0", background: "transparent", color: "#6B5840", fontSize: 12, fontFamily: F, cursor: "pointer" };
+const btnDanger   = { padding: "5px 12px", borderRadius: 4, border: "1px solid #D9BABA", background: "transparent", color: "#9B3030", fontSize: 11, fontFamily: F, cursor: "pointer" };
 
-const btnSecondary = {
-  padding: "7px 14px",
-  borderRadius: 4,
-  border: "1px solid #D5C9B0",
-  background: "transparent",
-  color: "#6B5840",
-  fontSize: 12,
-  fontFamily: F,
-  cursor: "pointer",
-};
+function toRoman(n) {
+  const vals = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
+  const syms = ["M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"];
+  let r = "";
+  for (let i = 0; i < vals.length; i++) {
+    while (n >= vals[i]) { r += syms[i]; n -= vals[i]; }
+  }
+  return r;
+}
 
-const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-
-// Convert array to textarea value (one item per line)
 const arrToText = (arr) => (arr || []).join("\n");
-// Convert textarea value to array
 const textToArr = (text) => text.split("\n").map(s => s.trim()).filter(Boolean);
 
-function SessionEditor({ session, onSave, onClose }) {
+const BLANK_SESSION = {
+  title: "",
+  theme: "",
+  color: "#C8A96E",
+  topics: [],
+  memorize: [],
+  practice: [],
+};
+
+function SessionForm({ initial, sessionNumber, onSave, onCancel, onDelete, isNew }) {
   const [draft, setDraft] = useState({
-    ...session,
-    _topics: arrToText(session.topics),
-    _memorize: arrToText(session.memorize),
-    _practice: arrToText(session.practice),
+    ...initial,
+    _topics:   arrToText(initial.topics),
+    _memorize: arrToText(initial.memorize),
+    _practice: arrToText(initial.practice),
   });
   const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [saved,  setSaved]  = useState(false);
 
   async function handleSave() {
+    if (!draft.title.trim()) return;
     setSaving(true);
     const updated = {
       ...draft,
-      topics: textToArr(draft._topics),
+      topics:   textToArr(draft._topics),
       memorize: textToArr(draft._memorize),
       practice: textToArr(draft._practice),
     };
-    // Remove helper fields
-    delete updated._topics;
-    delete updated._memorize;
-    delete updated._practice;
+    delete updated._topics; delete updated._memorize; delete updated._practice;
     const { error } = await onSave(updated);
     setSaving(false);
     if (!error) {
       setSaved(true);
-      setTimeout(() => { setSaved(false); onClose(); }, 900);
+      setTimeout(() => { setSaved(false); onCancel(); }, 900);
     }
   }
 
   return (
-    <div style={{ padding: "16px 14px", background: "#F2EAD5" }}>
+    <div style={{ padding: "16px 14px", background: "#F2EAD5", borderTop: isNew ? "none" : "1px solid #D5C9B0" }}>
       <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
         <div style={{ flex: 2 }}>
           <label style={labelStyle}>Title</label>
-          <input style={inputStyle} value={draft.title} onChange={e => setDraft(d => ({ ...d, title: e.target.value }))} />
+          <input style={inputStyle} value={draft.title} onChange={e => setDraft(d => ({ ...d, title: e.target.value }))} placeholder="Session title" autoFocus={isNew} />
         </div>
         <div style={{ flex: 2 }}>
           <label style={labelStyle}>Theme / subtitle</label>
-          <input style={inputStyle} value={draft.theme} onChange={e => setDraft(d => ({ ...d, theme: e.target.value }))} />
+          <input style={inputStyle} value={draft.theme} onChange={e => setDraft(d => ({ ...d, theme: e.target.value }))} placeholder="One-line theme" />
         </div>
-        <div style={{ width: 90 }}>
+        <div style={{ width: 110 }}>
           <label style={labelStyle}>Color</label>
           <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-            <input
-              type="color"
-              value={draft.color}
-              onChange={e => setDraft(d => ({ ...d, color: e.target.value }))}
-              style={{ width: 36, height: 32, border: "1px solid #D5C9B0", borderRadius: 4, padding: 2, cursor: "pointer", background: "#F2EAD5" }}
-            />
-            <input
-              style={{ ...inputStyle, flex: 1, fontSize: 11 }}
-              value={draft.color}
-              onChange={e => setDraft(d => ({ ...d, color: e.target.value }))}
-            />
+            <input type="color" value={draft.color} onChange={e => setDraft(d => ({ ...d, color: e.target.value }))}
+              style={{ width: 36, height: 32, border: "1px solid #D5C9B0", borderRadius: 4, padding: 2, cursor: "pointer", background: "#F2EAD5" }} />
+            <input style={{ ...inputStyle, fontSize: 11 }} value={draft.color} onChange={e => setDraft(d => ({ ...d, color: e.target.value }))} />
           </div>
         </div>
       </div>
 
       <div style={{ marginBottom: 12 }}>
         <label style={labelStyle}>Topics <span style={{ color: "#B8A880", textTransform: "none", letterSpacing: 0 }}>(one per line)</span></label>
-        <textarea
-          style={taStyle}
-          value={draft._topics}
-          onChange={e => setDraft(d => ({ ...d, _topics: e.target.value }))}
-          placeholder="Topic 1&#10;Topic 2&#10;Topic 3"
-        />
+        <textarea style={taStyle} value={draft._topics} onChange={e => setDraft(d => ({ ...d, _topics: e.target.value }))} placeholder="Topic 1&#10;Topic 2&#10;Topic 3" />
       </div>
-
       <div style={{ marginBottom: 12 }}>
         <label style={labelStyle}>Memorize <span style={{ color: "#B8A880", textTransform: "none", letterSpacing: 0 }}>(one per line)</span></label>
-        <textarea
-          style={{ ...taStyle, minHeight: 60 }}
-          value={draft._memorize}
-          onChange={e => setDraft(d => ({ ...d, _memorize: e.target.value }))}
-          placeholder="Verse or creed to memorize"
-        />
+        <textarea style={{ ...taStyle, minHeight: 60 }} value={draft._memorize} onChange={e => setDraft(d => ({ ...d, _memorize: e.target.value }))} placeholder="Verse or creed to memorize" />
       </div>
-
       <div style={{ marginBottom: 16 }}>
         <label style={labelStyle}>Practice <span style={{ color: "#B8A880", textTransform: "none", letterSpacing: 0 }}>(one per line)</span></label>
-        <textarea
-          style={{ ...taStyle, minHeight: 60 }}
-          value={draft._practice}
-          onChange={e => setDraft(d => ({ ...d, _practice: e.target.value }))}
-          placeholder="Practice exercise"
-        />
+        <textarea style={{ ...taStyle, minHeight: 60 }} value={draft._practice} onChange={e => setDraft(d => ({ ...d, _practice: e.target.value }))} placeholder="Practice exercise" />
       </div>
 
-      <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-        <button style={btnSecondary} onClick={onClose}>Cancel</button>
-        <button style={{ ...btnPrimary, opacity: saving ? 0.6 : 1 }} onClick={handleSave} disabled={saving}>
-          {saving ? "Saving…" : saved ? "Saved ✓" : "Save"}
-        </button>
+      <div style={{ display: "flex", gap: 8, justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          {!isNew && onDelete && (
+            <button style={btnDanger} onClick={() => onDelete(initial.id)}>Delete session</button>
+          )}
+        </div>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button style={btnSecondary} onClick={onCancel}>Cancel</button>
+          <button style={{ ...btnPrimary, opacity: saving ? 0.6 : 1 }} onClick={handleSave} disabled={saving}>
+            {saving ? "Saving…" : saved ? "Saved ✓" : isNew ? `Add Session ${toRoman(sessionNumber)}` : "Save"}
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
 export default function AdminSessions() {
-  const { sessions, saveSession } = useData();
+  const { sessions, saveSession, addSession, deleteSession } = useData();
   const [openId, setOpenId] = useState(null);
+  const [adding, setAdding] = useState(false);
+
+  const nextNumber = sessions.length + 1;
 
   return (
     <div>
-      <div style={{ fontSize: 16, color: "#1C1209", fontFamily: F, marginBottom: 16 }}>Sessions</div>
-      <div style={{ fontSize: 12, color: "#7A6545", fontFamily: F, fontStyle: "italic", marginBottom: 16 }}>
-        Click a session to edit its title, theme, topics, memory verses, and practice exercises.
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <div style={{ fontSize: 16, color: "#1C1209", fontFamily: F }}>Sessions</div>
+        <button style={btnPrimary} onClick={() => { setAdding(true); setOpenId(null); }}>
+          + New session
+        </button>
       </div>
 
+      <div style={{ fontSize: 12, color: "#7A6545", fontFamily: F, fontStyle: "italic", marginBottom: 16 }}>
+        {sessions.length} session{sessions.length !== 1 ? "s" : ""} · click to edit
+      </div>
+
+      {/* Add new session form */}
+      {adding && (
+        <div style={{ marginBottom: 12, border: "1px solid #C8A96E", borderRadius: 6, overflow: "hidden", background: "#EBE2CC" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px" }}>
+            <div style={{ width: 3, height: 32, borderRadius: 2, background: "#C8A96E", flexShrink: 0 }} />
+            <div>
+              <div style={{ fontSize: 10, color: "#A09070", fontFamily: F, textTransform: "uppercase", letterSpacing: "0.12em" }}>New</div>
+              <div style={{ fontSize: 15, color: "#1C1209", fontFamily: F }}>Session {toRoman(nextNumber)}</div>
+            </div>
+          </div>
+          <SessionForm
+            initial={BLANK_SESSION}
+            sessionNumber={nextNumber}
+            isNew={true}
+            onSave={addSession}
+            onCancel={() => setAdding(false)}
+          />
+        </div>
+      )}
+
+      {/* Existing sessions */}
       {sessions.map((s, idx) => (
         <div key={s.id} style={{ marginBottom: 8, border: "1px solid #D5C9B0", borderRadius: 6, overflow: "hidden" }}>
-          {/* Header */}
           <button
             style={{
               width: "100%",
@@ -186,32 +187,28 @@ export default function AdminSessions() {
               border: "none",
               cursor: "pointer",
               textAlign: "left",
-              borderBottom: openId === s.id ? "1px solid #D5C9B0" : "none",
             }}
-            onClick={() => setOpenId(id => id === s.id ? null : s.id)}
+            onClick={() => { setOpenId(id => id === s.id ? null : s.id); setAdding(false); }}
           >
-            <div style={{
-              width: 3,
-              height: 32,
-              borderRadius: 2,
-              background: s.color,
-              flexShrink: 0,
-              opacity: 0.8,
-            }} />
+            <div style={{ width: 3, height: 32, borderRadius: 2, background: s.color, flexShrink: 0, opacity: 0.85 }} />
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, color: "#A09070", fontFamily: F, textTransform: "uppercase", letterSpacing: "0.12em" }}>
-                Session {ROMAN[idx] || idx + 1}
+              <div style={{ fontSize: 10, color: "#A09070", fontFamily: F, textTransform: "uppercase", letterSpacing: "0.12em" }}>
+                Session {toRoman(idx + 1)}
               </div>
-              <div style={{ fontSize: 15, color: "#1C1209", fontFamily: F }}>{s.title}</div>
+              <div style={{ fontSize: 15, color: "#1C1209", fontFamily: F }}>{s.title || <em style={{ color: "#A09070" }}>Untitled</em>}</div>
             </div>
             <span style={{ fontSize: 10, color: "#A09070" }}>{openId === s.id ? "▲" : "▼"}</span>
           </button>
 
           {openId === s.id && (
-            <SessionEditor
+            <SessionForm
               session={s}
+              initial={s}
+              sessionNumber={idx + 1}
+              isNew={false}
               onSave={saveSession}
-              onClose={() => setOpenId(null)}
+              onDelete={deleteSession}
+              onCancel={() => setOpenId(null)}
             />
           )}
         </div>
