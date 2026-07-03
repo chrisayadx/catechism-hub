@@ -148,7 +148,7 @@ export function DataProvider({ children }) {
     const { error } = await supabase.from('resources_groups').insert({
       section: group.section, category: group.category,
       icon: group.icon, items: group.items,
-      sort_order: Math.floor(Date.now() / 1000),
+      sort_order: Date.now(),
     });
     if (!error) fetchAll();
     return { error };
